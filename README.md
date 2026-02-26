@@ -1,42 +1,65 @@
-# calculadora-aritmetica
+# Calculadora Aritmética
 
-This template should help get you started developing with Vue 3 in Vite.
+Aplicação de calculadora aritmética simples desenvolvida com Vue 3 e TypeScript.
 
-## Recommended IDE Setup
+## Tecnologias
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+| Tecnologia | Versão | Descrição |
+|---|---|---|
+| [Vue 3](https://vuejs.org/) | ^3.5 | Framework principal, usando `<script setup>` |
+| [TypeScript](https://www.typescriptlang.org/) | ~5.9 | Tipagem estática |
+| [Tailwind CSS](https://tailwindcss.com/) | ^4.2 | Estilização via classes utilitárias |
+| [Vite](https://vite.dev/) | ^7.3 | Bundler e servidor de desenvolvimento |
+| [Vue Router](https://router.vuejs.org/) | ^5.0 | Roteamento |
 
-## Recommended Browser Setup
+## Estrutura do projeto
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-bun install
+```
+src/
+├── components/
+│   ├── Input.vue       # Input numérico reutilizável com v-model
+│   ├── Select.vue      # Select reutilizável com v-model
+│   └── Result.vue      # Exibe o resultado da operação
+├── utils/
+│   └── calculator.ts   # Lógica das operações aritméticas
+├── router/
+│   └── index.ts        # Configuração de rotas
+├── App.vue             # Componente raiz
+├── main.ts             # Ponto de entrada
+└── style.css           # Estilos globais
 ```
 
-### Compile and Hot-Reload for Development
+## Funcionalidades
 
-```sh
-bun dev
+- Operações: adição, subtração, multiplicação e divisão
+- Resultado calculado automaticamente via `computed`
+- Validação de entrada: aceita apenas dígitos numéricos
+- Tratamento de divisão por zero com mensagem de erro
+- Decimais limitados a 2 casas apenas quando necessário
+
+## Como rodar
+
+```bash
+npm install
+npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Scripts disponíveis
 
-```sh
-bun run build
-```
+| Script | Descrição |
+|---|---|
+| `npm run dev` | Inicia o servidor de desenvolvimento |
+| `npm run build` | Gera o build de produção com type-check |
+| `npm run preview` | Pré-visualiza o build de produção |
+| `npm run type-check` | Valida os tipos TypeScript |
+
+## Decisões técnicas
+
+### Componentes reutilizáveis
+`Input.vue` e `Select.vue` implementam o contrato de `v-model` do Vue 3 via `modelValue` (prop) e `update:modelValue` (emit), permitindo uso com `v-model` no componente pai.
+
+### Validação de input
+O `Input.vue` usa `type="text"` com `inputmode="numeric"` em vez de `type="number"`. Isso permite controle total sobre os caracteres aceitos via regex `/[^0-9]/g` no evento `input`, bloqueando letras inclusive em casos de colagem e input mobile.
+
+### Lógica de cálculo separada
+A função `calculator` em `utils/calculator.ts` é independente do Vue, facilitando testes e reuso.
