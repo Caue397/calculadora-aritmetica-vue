@@ -40,18 +40,18 @@ src/
 ## Como rodar
 
 ```bash
-npm install
-npm run dev
+bun install
+bun dev
 ```
 
 ## Scripts disponíveis
 
 | Script | Descrição |
 |---|---|
-| `npm run dev` | Inicia o servidor de desenvolvimento |
-| `npm run build` | Gera o build de produção com type-check |
-| `npm run preview` | Pré-visualiza o build de produção |
-| `npm run type-check` | Valida os tipos TypeScript |
+| `bun dev` | Inicia o servidor de desenvolvimento |
+| `bun run build` | Gera o build de produção com type-check |
+| `bun run preview` | Pré-visualiza o build de produção |
+| `bun run type-check` | Valida os tipos TypeScript |
 
 ## Decisões técnicas
 
